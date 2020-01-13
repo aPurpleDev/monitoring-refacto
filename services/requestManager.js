@@ -27,7 +27,7 @@ const getAllSNMPRecords = function(request, response){
 const getXoldestOSRecords = function(request, response){
     selectXOldestOSRecords(request.params.delimiter)
         .then(data => response.json(data))
-        .catch((e) => console.log(console.log(e));
+        .catch((e) => console.log(console.log(e)));
 };
 
 //Select that returns X newest records of the osmetrics table, where X = delimeter param of the route.
@@ -45,6 +45,9 @@ const getOSRecordsAboveUsage = function(request, response){
 };
 
 //Select that returns records created in between startdate and enddate, which are params of the route.
+/**
+ * @param {{startdate, enddate}} request.params
+ */
 const getOSRecordsByDates = function(request, response){
     selectOSRecordsByDates(request.params.startdate, request.params.enddate)
         .then(data => response.json(data))
