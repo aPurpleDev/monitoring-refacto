@@ -14,13 +14,17 @@ app.use(cors());
 app.use('/',router);
 
 initDB();
+
+const initApp = () => {
 setInterval(() => insertOSRecords(), 5000);
 try{
     setInterval(() => insertSNMPRecords(probeSNMP()), 5000);
 }catch(e){
     console.log("Error on SNMP Features, check that SNMP is available on your device", e);
 }
+    app.listen(8060);
+};
 
 module.exports = {
-    app
+    initApp
 };

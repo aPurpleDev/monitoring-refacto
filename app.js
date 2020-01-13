@@ -1,3 +1,3 @@
-import { app } from './server/server';
+import { initApp } from './server/server';
 
-app.listen(8060);
+initApp();
