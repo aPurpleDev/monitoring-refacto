@@ -2,7 +2,7 @@ import { getAllOSRecords, getAllSNMPRecords, getXoldestOSRecords,
     getXnewestOSRecords, getOSRecordsAboveUsage, getOSRecordsByDates,
     deleteOSTable, putDeleteXOSRecords, putDeleteOSMetricsByIds,
     getTableSizes, getTableUsage, getUserRecords
-} from '../services/requestManager';
+} from '../controller/controller';
 
 const express = require('express');
 const router = express.Router();

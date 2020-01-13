@@ -2,7 +2,7 @@ import { initDB } from '../models/init';
 import { insertOSRecords } from '../models/osModel';
 import { probeSNMP } from '../services/snmpProbe';
 import { insertSNMPRecords } from '../models/snmpModel';
-import { router } from '../controller/router';
+import { router } from './router';
 
 const express = require('express');
 const bodyParser = require('body-parser');
