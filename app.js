@@ -1,3 +1,4 @@
-import { initApp } from './server/server';
+import { initApp, app } from './server/server.js';
 
 initApp();
+app.listen(8060);

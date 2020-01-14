@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-import { osSchema }  from './osModel';
-import { snpmSchema }  from './snmpModel';
+import { osSchema }  from './osModel.js';
+import { snpmSchema }  from './snmpModel.js';
 
 
 const DBURL = `postgres://postgres:softia@192.168.10.65:5432/Monitoring`;

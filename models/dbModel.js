@@ -1,4 +1,4 @@
-import { sequelize } from './init';
+import { sequelize } from './init.js';
 
 //Select database sizes from the current database's server, using Postgres' statistics table
 const selectDBSizes = async () => {

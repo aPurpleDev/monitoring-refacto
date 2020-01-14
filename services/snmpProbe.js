@@ -1,5 +1,3 @@
-import { snpmSchema } from '../models/snmpModel';
-
 //SNMP Metrics handlers, for now IP target hard-coded TODO design to get IP of current client + flag clients by MAC Addresses
 const snmp = require('net-snmp');
 const session = snmp.createSession('192.168.10.148', 'public');

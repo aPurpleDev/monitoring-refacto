@@ -1,11 +1,11 @@
 import { selectOSRecords, selectXOldestOSRecords, selectXNewestOSRecords,
     selectOSRecordsByDates, selectOSRecordsAboveUsage, dropOSTable,
     deleteOSRecords, deleteOSRecordsBelowUsage, deleteOSRecordsByIds
-   } from '../models/osModel';
+   } from '../models/osModel.js';
 
-import { selectSNMPRecords } from '../models/snmpModel';
+import { selectSNMPRecords } from '../models/snmpModel.js';
 
-import { selectDBSizes, selectOSTablePercentUsed, getUserConnections } from '../models/dbModel';
+import { selectDBSizes, selectOSTablePercentUsed, getUserConnections } from '../models/dbModel.js';
 
 //TODO Homepage '/' route => API Swagger
 

@@ -1,8 +1,8 @@
-import { initDB } from '../models/init';
-import { insertOSRecords } from '../models/osModel';
-import { probeSNMP } from '../services/snmpProbe';
-import { insertSNMPRecords } from '../models/snmpModel';
-import { router } from './router';
+import { initDB } from '../models/init.js';
+import { insertOSRecords } from '../models/osModel.js';
+import { probeSNMP } from '../services/snmpProbe.js';
+import { insertSNMPRecords } from '../models/snmpModel.js';
+import { router } from './router.js';
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -22,9 +22,9 @@ try{
 }catch(e){
     console.log("Error on SNMP Features, check that SNMP is available on your device", e);
 }
-    app.listen(8060);
 };
 
 module.exports = {
-    initApp
+    initApp,
+    app
 };
