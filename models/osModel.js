@@ -1,6 +1,6 @@
-import { sequelize }  from './init.js';
-
-const Sequelize = require('sequelize');
+const db = require('./init.js').db;
+sequelize = db.sequelize;
+Sequelize = db.Sequelize;
 const Op = Sequelize.Op;
 
 const osutils = require('os-utils');

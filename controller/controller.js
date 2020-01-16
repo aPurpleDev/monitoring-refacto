@@ -1,17 +1,13 @@
-import { selectOSRecords, selectXOldestOSRecords, selectXNewestOSRecords,
-    selectOSRecordsByDates, selectOSRecordsAboveUsage, dropOSTable,
-    deleteOSRecords, deleteOSRecordsBelowUsage, deleteOSRecordsByIds
-   } from '../models/osModel.js';
+const osModel = require('../models/osModel.js');
+const dbModel = require('../models/dbModel.js');
 
-import { selectSNMPRecords } from '../models/snmpModel.js';
-
-import { selectDBSizes, selectOSTablePercentUsed, getUserConnections } from '../models/dbModel.js';
+const selectSNMPRecords  = require('../models/snmpModel.js').selectSNMPRecords;
 
 //TODO Homepage '/' route => API Swagger
 
 //Select all records from the osmetrics table.
 const getAllOSRecords = function(request, response){
-    selectOSRecords().then(data => {
+    osModel.selectOSRecords().then(data => {
         response.json(data);
     }).catch(e => console.log(e));
 };
@@ -25,21 +21,21 @@ const getAllSNMPRecords = function(request, response){
 
 //Select that returns X oldest records of the osmetrics table, where X = delimeter param of the route.
 const getXoldestOSRecords = function(request, response){
-    selectXOldestOSRecords(request.params.delimiter)
+    osModel.selectXOldestOSRecords(request.params.delimiter)
         .then(data => response.json(data))
         .catch((e) => console.log(console.log(e)));
 };
 
 //Select that returns X newest records of the osmetrics table, where X = delimeter param of the route.
 const getXnewestOSRecords = function(request, response){
-    selectXNewestOSRecords(request.params.delimiter)
+    osModel.selectXNewestOSRecords(request.params.delimiter)
         .then(data => response.json(data))
         .catch((e) => console.log(console.log(e)));
 };
 
 //Select that returns records where cpuUsage was higher or equal than X, where X = cutoff param of the route.
 const getOSRecordsAboveUsage = function(request, response){
-    selectOSRecordsAboveUsage(request.params.cutoff)
+    osModel.selectOSRecordsAboveUsage(request.params.cutoff)
         .then(data => response.json(data))
         .catch((e) => console.log(console.log(e)));
 };
@@ -49,7 +45,7 @@ const getOSRecordsAboveUsage = function(request, response){
  * @param {{startdate, enddate}} request.params
  */
 const getOSRecordsByDates = function(request, response){
-    selectOSRecordsByDates(request.params.startdate, request.params.enddate)
+    osModel.selectOSRecordsByDates(request.params.startdate, request.params.enddate)
         .then(data => response.json(data))
         .catch((e) => console.log(console.log(e)));
 };
@@ -57,7 +53,7 @@ const getOSRecordsByDates = function(request, response){
 //Delete all records from the osmetrics table
 const deleteOSTable = function(request, response){
     response.send({type: 'DELETE', message: 'Deletion of OS Data Table'});
-    dropOSTable()
+    osModel.dropOSTable()
         .then(() => console.log('DELETE request received and processed'))
         .catch((e) => console.log(console.log(e)));
 };
@@ -70,7 +66,7 @@ const putDeleteXOSRecords = function(request, response){
 
         if (!Number.isNaN(parseInt(cutoff))) {
 
-            deleteOSRecords(cutoff).catch((e) => console.log(e));
+            osModel.deleteOSRecords(cutoff).catch((e) => console.log(e));
             response.json({'message': `Successfully deleted the ${parseInt(cutoff)} oldest records of osmetrics table`});
         } else {
             response.status(400);
@@ -78,7 +74,7 @@ const putDeleteXOSRecords = function(request, response){
         }
     } else if (request.body.hasOwnProperty('targetUsage')) {
         if (parseInt(request.body.targetUsage)) {
-            deleteOSRecordsBelowUsage(request.body.targetUsage).catch((e) => console.log(e));
+            osModel.deleteOSRecordsBelowUsage(request.body.targetUsage).catch((e) => console.log(e));
             response.json({'message': `Successfully deleted records of cpu usage lower than ${parseInt(request.body.targetUsage)} in osmetrics table`});
         } else {
             response.status(400);
@@ -99,7 +95,7 @@ const putDeleteOSMetricsByIds = function(request, response){
     if (request.body.hasOwnProperty('ids')) {
         let ids = request.body.ids;
         try{
-            deleteOSRecordsByIds(ids);
+            osModel.deleteOSRecordsByIds(ids);
         }catch(e)
         {
             console.log("Error on try/catch route splcie Ids:", e);
@@ -113,19 +109,19 @@ const putDeleteOSMetricsByIds = function(request, response){
 
 //Selects all collection names and sizes within the database
 const getTableSizes = function(request, response){
-    selectDBSizes().then((data) => response.json(data))
+    dbModel.selectDBSizes().then((data) => response.json(data))
         .catch((e) => console.log(e));
 };
 
 //Selects the osmetrics table index % usage and its rows count
 const getTableUsage = function(request, response){
-    selectOSTablePercentUsed().then((data) => response.json(data))
+    dbModel.selectOSTablePercentUsed().then((data) => response.json(data))
         .catch((e) => console.log(e));
 };
 
 //Selects all records of user connections in the database
 const getUserRecords = function(request, response){
-   getUserConnections().then((data) => response.json(data))
+    dbModel.getUserConnections().then((data) => response.json(data))
         .catch((e) => console.log(e));
 };
 

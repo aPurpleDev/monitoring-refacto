@@ -1,8 +1,8 @@
-import { initDB } from '../models/init.js';
-import { insertOSRecords } from '../models/osModel.js';
-import { probeSNMP } from '../services/snmpProbe.js';
-import { insertSNMPRecords } from '../models/snmpModel.js';
-import { router } from './router.js';
+const initDB = require('../models/init.js').initDB;
+const insertOSRecords = require('../models/osModel.js').insertOSRecords;
+const probeSNMP = require('../services/snmpProbe.js').probeSNMP;
+const insertSNMPRecords = require('../models/snmpModel.js').insertSNMPRecords;
+const router = require('./router.js').router;
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,16 +13,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use('/',router);
 
-initDB();
-
 const initApp = () => {
-setInterval(() => insertOSRecords(), 5000);
+    console.log('initApp() call');
+    initDB();
+    setInterval(() => insertOSRecords(), 5000);
 try{
     setInterval(() => insertSNMPRecords(probeSNMP()), 5000);
 }catch(e){
     console.log("Error on SNMP Features, check that SNMP is available on your device", e);
 }
-    app.listen(8060);
 };
 
 module.exports = {

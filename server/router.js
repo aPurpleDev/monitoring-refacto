@@ -1,37 +1,33 @@
-import { getAllOSRecords, getAllSNMPRecords, getXoldestOSRecords,
-    getXnewestOSRecords, getOSRecordsAboveUsage, getOSRecordsByDates,
-    deleteOSTable, putDeleteXOSRecords, putDeleteOSMetricsByIds,
-    getTableSizes, getTableUsage, getUserRecords
-} from '../controller/controller.js';
+const controller = require('../controller/controller.js');
 
 const express = require('express');
 const router = express.Router();
 
 // TODO Swagger API @ router.get('/', methodTBD);
 
-router.get('/osrecords', getAllOSRecords);
+router.get('/osrecords', controller.getAllOSRecords);
 
-router.get('/snmprecords', getAllSNMPRecords);
+router.get('/snmprecords', controller.getAllSNMPRecords);
 
-router.get('/osrecords/oldest/:delimiter', getXoldestOSRecords);
+router.get('/osrecords/oldest/:delimiter', controller.getXoldestOSRecords);
 
-router.get('/osrecords/newest/:delimiter', getXnewestOSRecords);
+router.get('/osrecords/newest/:delimiter', controller.getXnewestOSRecords);
 
-router.get('/osrecords/cpuusage/:cutoff', getOSRecordsAboveUsage);
+router.get('/osrecords/cpuusage/:cutoff', controller.getOSRecordsAboveUsage);
 
-router.get('/osjson/dates/:startdate/:enddate', getOSRecordsByDates);
+router.get('/osjson/dates/:startdate/:enddate', controller.getOSRecordsByDates);
 
-router.delete('/osdata/delete', deleteOSTable);
+router.delete('/osdata/delete', controller.deleteOSTable);
 
-router.put('/osdata/splice/cutoff', putDeleteXOSRecords);
+router.put('/osdata/splice/cutoff', controller.putDeleteXOSRecords);
 
-router.put('/osdata/splice/ids', putDeleteOSMetricsByIds);
+router.put('/osdata/splice/ids', controller.putDeleteOSMetricsByIds);
 
-router.get('/dbrecords/tablesizes', getTableSizes);
+router.get('/dbrecords/tablesizes', controller.getTableSizes);
 
-router.get('/dbrecords/tableusage', getTableUsage);
+router.get('/dbrecords/tableusage', controller.getTableUsage);
 
-router.get('dbrecords/userlogs', getUserRecords);
+router.get('dbrecords/userlogs', controller.getUserRecords);
 
 module.exports = {
     router

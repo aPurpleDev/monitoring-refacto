@@ -1,4 +1,4 @@
-import { sequelize }  from './init.js';
+const sequelize = './init.js'.sequelize;
 
 const Sequelize = require('sequelize');
 
